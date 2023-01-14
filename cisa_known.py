@@ -71,6 +71,7 @@ def search_vendor(data, search_string):
             print("Vendor:\t", result['vendorProject'].replace(search_string, colored(search_string, 'green')))
             print("Name:\t", result['vulnerabilityName'])
             print("Date:\t", result['dateAdded'])
+            print("URL:\t https://nvd.nist.gov/vuln/detail/" + result['cveID'])
             print("Info:\t", result['shortDescription'])
             
 
@@ -91,6 +92,7 @@ def search_all(data, search_string):
             print("Vendor:\t", result['vendorProject'])
             print("Name:\t", result['vulnerabilityName'])
             print("Date:\t", result['dateAdded'])
+            print("URL:\t https://nvd.nist.gov/vuln/detail/" + result['cveID'])
             print("Info:\t", result['shortDescription'])
 
 def print_local_info(data):
