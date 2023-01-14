@@ -1,11 +1,10 @@
 # CISA Catalog
 
-The Cybersecurity & Infrastructure Security Agency (CISA) has issued a new directive that requires federal agencies to patch known vulnerability exploits. They are also publishing a list of these exploits to aid the effort. This list is available to the private sector and can be found at 
-https://www.cisa.gov/known-exploited-vulnerabilities-catalog.
+The script, which is designed to be user-friendly and efficient, allows users to search through the CISA Catalog database offline for specific products or vendors, and then displays detailed information about any vulnerabilities that have been identified in those products or by those vendors. The information that is displayed also includes the vulnerability's Common Vulnerabilities and Exposures (CVE) number including a link to the NIST database.
 
-# Script
+This script is particularly useful for organizations and individuals that are required to comply with the new directive issued by the Cybersecurity & Infrastructure Security Agency (CISA), which mandates that federal agencies patch known vulnerability exploits as soon as possible. This directive is intended to help protect the government's networks and systems from cyber attacks by reducing the number of known vulnerabilities that can be exploited.
 
-This simple script let's you search through the database offline for product or vendor and displays more information about a certain vulnerability.
+As part of this directive, CISA is also publishing a list of known vulnerability exploits to aid in this effort. This list is publicly available and can be accessed via the CISA website at https://www.cisa.gov/known-exploited-vulnerabilities-catalog. The list is regularly updated as new vulnerabilities are discovered and can be used as a reference for organizations and individuals to identify known vulnerabilities and take appropriate action to mitigate the risks associated with them.
 
 ## Info
 
