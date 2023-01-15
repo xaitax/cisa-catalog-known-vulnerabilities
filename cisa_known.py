@@ -4,6 +4,29 @@ from termcolor import colored
 import requests
 import os
 from collections import Counter
+from tqdm import tqdm
+from pygments import highlight
+from pygments.lexers import JsonLexer
+from pygments.formatters import TerminalFormatter
+from pygments.formatters import HtmlFormatter
+
+
+def print_local_info(data):
+    print('')
+    print('_________ .___  _________   _____    _________         __         .__                 ')
+    print('\_   ___ \|   |/   _____/  /  _  \   \_   ___ \_____ _/  |______  |  |   ____   ____  ')
+    print('/    \  \/|   |\_____  \  /  /_\  \  /    \  \/\__  \\   __ \__  \ |  |  /  _ \ / ___\ ')
+    print('\     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >')
+    print(' \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  / ')
+    print('        \/            \/         \/          \/     \/          \/           /_____/  ')
+    print('Alexander Hagenah / ah@primepage.de / @xaitax / v 0.2')
+    print('')
+    print("Title:\t", data['title'])
+    print("Version:", data['catalogVersion'])
+    print("Total:\t", data['count'], "vulnerabilities")
+    print("URL:\t https://www.cisa.gov/known-exploited-vulnerabilities-catalog")
+    print("\n")
+
 
 def update_local_file():
     url = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
@@ -25,7 +48,24 @@ def update_local_file():
             # Download the most recent version
             with open(local_file, "w") as f:
                 json.dump(online_data, f)
-            print("Latest version downloaded.")
+            print("Latest CISA database downloaded.")
+            
+            enriched_folder = 'enriched'
+            if not os.path.exists(enriched_folder):
+                os.makedirs(enriched_folder)
+            
+            # download each cveID and store it in the desired location
+            print("Downloading enriched CVE information.")
+            total_vulnerabilities = len(online_data['vulnerabilities'])
+            for vulnerability in tqdm(online_data['vulnerabilities'], desc = 'Download Progress', total = total_vulnerabilities):
+                cve_id = vulnerability['cveID']
+                cve_file = f"{enriched_folder}/{cve_id}.json"
+                if not os.path.exists(cve_file):
+                    cve_url = f"https://cve.circl.lu/api/cve/{cve_id}"
+                    cve_response = requests.get(cve_url)
+                    cve_data = json.loads(cve_response.text)
+                    with open(cve_file, "w") as f:
+                        json.dump(cve_data, f)
             data = online_data
         else:
             print("Using the local version.")
@@ -53,7 +93,6 @@ def search_product(data, search_string):
             print("URL:\t https://nvd.nist.gov/vuln/detail/" + result['cveID'])
             print("Info:\t", result['shortDescription'])
             
-
 def search_vendor(data, search_string):
     results = []
     for vulnerability in data['vulnerabilities']:
@@ -74,7 +113,6 @@ def search_vendor(data, search_string):
             print("URL:\t https://nvd.nist.gov/vuln/detail/" + result['cveID'])
             print("Info:\t", result['shortDescription'])
             
-
 def search_all(data, search_string):
     results = []
     for vulnerability in data['vulnerabilities']:
@@ -95,20 +133,16 @@ def search_all(data, search_string):
             print("URL:\t https://nvd.nist.gov/vuln/detail/" + result['cveID'])
             print("Info:\t", result['shortDescription'])
 
-def print_local_info(data):
-    print('')
-    print('_________ .___  _________   _____    _________         __         .__                 ')
-    print('\_   ___ \|   |/   _____/  /  _  \   \_   ___ \_____ _/  |______  |  |   ____   ____  ')
-    print('/    \  \/|   |\_____  \  /  /_\  \  /    \  \/\__  \\   __ \__  \ |  |  /  _ \ / ___\ ')
-    print('\     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >')
-    print(' \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  / ')
-    print('        \/            \/         \/          \/     \/          \/           /_____/  ')
-    print('Alexander Hagenah / ah@primepage.de / @xaitax / v.1')
-    print('')
-    print("Title:\t", data['title'])
-    print("Version:", data['catalogVersion'])
-    print("Total Vulnerabilities:", data['count'])
-    print("URL: https://www.cisa.gov/known-exploited-vulnerabilities-catalog")
+def display_enriched_info(cveID):
+    enriched_file = f"enriched/{cveID}.json"
+    if os.path.exists(enriched_file):
+        with open(enriched_file) as f:
+            cve_data = json.load(f)
+        json_str = json.dumps(cve_data, indent=4)
+        print(highlight(json_str, JsonLexer(), TerminalFormatter()))
+    else:
+        print(f"{cveID} does not exist in the enriched folder.")
+
 
 def print_stats(data):
     vendor_projects = [vulnerability['vendorProject'] for vulnerability in data['vulnerabilities']]
@@ -129,6 +163,7 @@ parser = argparse.ArgumentParser(description='Search for a specific product/vend
 parser.add_argument('-p', '--product', type=str, help='The product to search for')
 parser.add_argument('-v', '--vendor', type=str, help='The vendor to search for')
 parser.add_argument('-a', '--all', type=str, help='Search for both product and vendor in the CISA Catalog')
+parser.add_argument("-e", "--enriched", help="Display detailed information about the CVE")
 parser.add_argument('-u', '--update', action='store_true', help='Check for updates and download the most recent version')
 parser.add_argument('-i', '--info', action='store_true', help='Print information about the CISA Catalog')
 parser.add_argument('-s', '--stats', action='store_true', help='Print statistics about the CISA Catalog')
@@ -147,18 +182,26 @@ else:
         exit()
 
 if args.stats:
+    print_local_info(data)
     print_stats(data)
 elif args.info:
     print_local_info(data)
 elif args.product is not None:
+    print_local_info(data)
     search_string = args.product
     search_product(data, search_string)
 elif args.vendor is not None:
+    print_local_info(data)
     search_string = args.vendor
     search_vendor(data, search_string)
 elif args.all is not None:
+    print_local_info(data)
     search_string = args.all
     search_all(data, search_string)
+elif args.enriched is not None:
+    print_local_info(data)
+    search_string = args.enriched
+    display_enriched_info(args.enriched)   
 else:
     print_local_info(data)
 
