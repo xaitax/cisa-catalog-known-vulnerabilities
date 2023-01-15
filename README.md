@@ -1,4 +1,4 @@
-# CISA Catalog
+# CISA Catalog of Known Exploited Vulnerabilities
 
 The script, which is designed to be user-friendly and efficient, allows users to search through the CISA Catalog database offline for specific products or vendors, and then displays detailed information about any vulnerabilities that have been identified in those products or by those vendors. The information that is displayed also includes the vulnerability's Common Vulnerabilities and Exposures (CVE) number including a link to the NIST database.
 It also features the possibility to display enhanced information about specific CVEs.
@@ -14,7 +14,7 @@ The script offers the following possibilities:
 ## Info
 
 ```
-python cisa_known.py -i
+$ python cisa_known.py -i
 
 _________ .___  _________   _____    _________         __         .__
 \_   ___ \|   |/   _____/  /  _  \   \_   ___ \_____ _/  |______  |  |   ____   ____
@@ -55,7 +55,7 @@ options:
 ## Product Search
 
 ```
-python cisa_known.py -p "Adobe"
+$ python cisa_known.py -p "Adobe"
 
 _________ .___  _________   _____    _________         __         .__
 \_   ___ \|   |/   _____/  /  _  \   \_   ___ \_____ _/  |______  |  |   ____   ____
@@ -95,7 +95,7 @@ Info:    A remote code execution vulnerability exists in Microsoft Windows when 
 ## Vendor Search
 
 ```
-python cisa_known.py -v "Adobe"
+$ python cisa_known.py -v "Adobe"
 
 _________ .___  _________   _____    _________         __         .__
 \_   ___ \|   |/   _____/  /  _  \   \_   ___ \_____ _/  |______  |  |   ____   ____
@@ -146,7 +146,7 @@ Info:    Adobe ColdFusion Update 5 and earlier versions, ColdFusion 11 Update 13
 ## Detailed CVE Information
 
 ```
-python cisa_known.py -e CVE-2020-1020
+$ python cisa_known.py -e CVE-2020-1020
 
 _________ .___  _________   _____    _________         __         .__
 \_   ___ \|   |/   _____/  /  _  \   \_   ___ \_____ _/  |______  |  |   ____   ____
@@ -303,7 +303,7 @@ URL:     https://www.cisa.gov/known-exploited-vulnerabilities-catalog
 ## Top 10 Statistics (Vendor / Months)
 
 ```
-python cisa_known.py -s
+$ python cisa_known.py -s
 
 _________ .___  _________   _____    _________         __         .__
 \_   ___ \|   |/   _____/  /  _  \   \_   ___ \_____ _/  |______  |  |   ____   ____
@@ -347,7 +347,8 @@ Top 10 Months:
 ## Update Functionality (including CVE details)
 
 ```
-python cisa_known.py -u
+$ python cisa_known.py -u
+
 Newer version found online. Update? (yes/no) yes
 Latest CISA database downloaded.
 Downloading enriched CVE information.
