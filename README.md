@@ -22,7 +22,7 @@ _________ .___  _________   _____    _________         __         .__
 \     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >
  \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  /
         \/            \/         \/          \/     \/          \/           /_____/
-Alexander Hagenah / ah@primepage.de / @xaitax / v 0.2
+Alexander Hagenah / ah@primepage.de / @xaitax / v 0.3
 
 Title:   CISA Catalog of Known Exploited Vulnerabilities
 Version: 2023.01.10
@@ -33,8 +33,8 @@ URL:     https://www.cisa.gov/known-exploited-vulnerabilities-catalog
 ## Help
 
 ```
-python cisa_known.py -h
-usage: cisa_known.py [-h] [-p PRODUCT] [-v VENDOR] [-a ALL] [-e ENRICHED] [-u] [-i] [-s]
+$ python cisa_known.py -h
+usage: cisa_known.py [-h] [-p PRODUCT] [-v VENDOR] [-a ALL] [-e ENRICHED] [-u] [-i] [-r] [-s]
 
 Search for a specific product/vendor in the CISA Catalog.
 
@@ -49,6 +49,7 @@ options:
                         Display detailed information about the CVE
   -u, --update          Check for updates and download the most recent version
   -i, --info            Print information about the CISA Catalog
+  -r, --recent          Show 5 most recent additions to the CISA Catalog
   -s, --stats           Print statistics about the CISA Catalog
 ```
 
@@ -63,7 +64,7 @@ _________ .___  _________   _____    _________         __         .__
 \     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >
  \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  /
         \/            \/         \/          \/     \/          \/           /_____/
-Alexander Hagenah / ah@primepage.de / @xaitax / v 0.2
+Alexander Hagenah / ah@primepage.de / @xaitax / v 0.3
 
 Title:   CISA Catalog of Known Exploited Vulnerabilities
 Version: 2023.01.10
@@ -103,7 +104,7 @@ _________ .___  _________   _____    _________         __         .__
 \     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >
  \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  /
         \/            \/         \/          \/     \/          \/           /_____/
-Alexander Hagenah / ah@primepage.de / @xaitax / v 0.2
+Alexander Hagenah / ah@primepage.de / @xaitax / v 0.3
 
 Title:   CISA Catalog of Known Exploited Vulnerabilities
 Version: 2023.01.10
@@ -154,7 +155,7 @@ _________ .___  _________   _____    _________         __         .__
 \     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >
  \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  /
         \/            \/         \/          \/     \/          \/           /_____/
-Alexander Hagenah / ah@primepage.de / @xaitax / v 0.2
+Alexander Hagenah / ah@primepage.de / @xaitax / v 0.3
 
 Title:   CISA Catalog of Known Exploited Vulnerabilities
 Version: 2023.01.10
@@ -300,6 +301,68 @@ URL:     https://www.cisa.gov/known-exploited-vulnerabilities-catalog
 }
 ```
 
+## 5 Most Recently Added Vulnerabilities
+
+```
+$ python cisa_known.py -r
+
+_________ .___  _________   _____    _________         __         .__
+\_   ___ \|   |/   _____/  /  _  \   \_   ___ \_____ _/  |______  |  |   ____   ____
+/    \  \/|   |\_____  \  /  /_\  \  /    \  \/\__  \   __ \__  \ |  |  /  _ \ / ___\
+\     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >
+ \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  /
+        \/            \/         \/          \/     \/          \/           /_____/
+Alexander Hagenah / ah@primepage.de / @xaitax / v 0.3
+
+Title:   CISA Catalog of Known Exploited Vulnerabilities
+Version: 2023.01.10
+Total:   870 vulnerabilities
+URL:     https://www.cisa.gov/known-exploited-vulnerabilities-catalog
+
+
+5 Most Recently Added Vulnerabilities:
+
+CVE ID:  CVE-2022-41080
+Product: Exchange Server
+Vendor:  Microsoft
+Name:    Microsoft Exchange Server Privilege Escalation Vulnerability
+Date:    2023-01-10
+URL:     https://nvd.nist.gov/vuln/detail/CVE-2022-41080
+Info:    Microsoft Exchange Server contains an unspecified vulnerability that allows for privilege escalation. This vulnerability is chainable with CVE-2022-41082, which allows for remote code execution.
+
+CVE ID:  CVE-2023-21674
+Product: Windows
+Vendor:  Microsoft
+Name:    Microsoft Windows Advanced Local Procedure Call (ALPC) Privilege Escalation Vulnerability
+Date:    2023-01-10
+URL:     https://nvd.nist.gov/vuln/detail/CVE-2023-21674
+Info:    Microsoft Windows Advanced Local Procedure Call (ALPC) contains an unspecified vulnerability that allows for privilege escalation.
+
+CVE ID:  CVE-2018-5430
+Product: JasperReports
+Vendor:  TIBCO
+Name:    TIBCO JasperReports Server Information Disclosure Vulnerability
+Date:    2022-12-29
+URL:     https://nvd.nist.gov/vuln/detail/CVE-2018-5430
+Info:    TIBCO JasperReports Server contain a vulnerability which may allow any authenticated user read-only access to the contents of the web application, including key configuration files.
+
+CVE ID:  CVE-2018-18809
+Product: JasperReports
+Vendor:  TIBCO
+Name:    TIBCO JasperReports Library Directory Traversal Vulnerability
+Date:    2022-12-29
+URL:     https://nvd.nist.gov/vuln/detail/CVE-2018-18809
+Info:    TIBCO JasperReports Library contains a directory-traversal vulnerability that may allow web server users to access contents of the host system.
+
+CVE ID:  CVE-2022-42856
+Product: iOS
+Vendor:  Apple
+Name:    Apple iOS Type Confusion Vulnerability
+Date:    2022-12-14
+URL:     https://nvd.nist.gov/vuln/detail/CVE-2022-42856
+Info:    Apple iOS contains a type confusion vulnerability when processing maliciously crafted web content leading to code execution.
+```
+
 ## Top 10 Statistics (Vendor / Months)
 
 ```
@@ -311,7 +374,7 @@ _________ .___  _________   _____    _________         __         .__
 \     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >
  \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  /
         \/            \/         \/          \/     \/          \/           /_____/
-Alexander Hagenah / ah@primepage.de / @xaitax / v 0.2
+Alexander Hagenah / ah@primepage.de / @xaitax / v 0.3
 
 Title:   CISA Catalog of Known Exploited Vulnerabilities
 Version: 2023.01.10
@@ -360,7 +423,7 @@ _________ .___  _________   _____    _________         __         .__
 \     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >
  \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  /
         \/            \/         \/          \/     \/          \/           /_____/
-Alexander Hagenah / ah@primepage.de / @xaitax / v 0.2
+Alexander Hagenah / ah@primepage.de / @xaitax / v 0.3
 
 Title:   CISA Catalog of Known Exploited Vulnerabilities
 Version: 2023.01.10
@@ -369,6 +432,11 @@ URL:     https://www.cisa.gov/known-exploited-vulnerabilities-catalog
 ```
 
 # Changelog
+
+0.3
+
+[Added]
+- Display 5 Most Recently Added Vulnerabilities
 
 0.2
 

@@ -1,8 +1,8 @@
 import json
 import argparse
-from termcolor import colored
 import requests
 import os
+from termcolor import colored
 from collections import Counter
 from tqdm import tqdm
 from pygments import highlight
@@ -19,7 +19,7 @@ def print_local_info(data):
     print('\     \___|   |/        \/    |    \ \     \____/ __ \|  |  / __ \|  |_(  <_> ) /_/  >')
     print(' \______  /___/_______  /\____|__  /  \______  (____  /__| (____  /____/\____/\___  / ')
     print('        \/            \/         \/          \/     \/          \/           /_____/  ')
-    print('Alexander Hagenah / ah@primepage.de / @xaitax / v 0.2')
+    print('Alexander Hagenah / ah@primepage.de / @xaitax / v 0.3')
     print('')
     print("Title:\t", data['title'])
     print("Version:", data['catalogVersion'])
@@ -143,6 +143,18 @@ def display_enriched_info(cveID):
     else:
         print(f"{cveID} does not exist in the enriched folder.")
 
+def display_recent_vulnerabilities(data):
+    vulnerabilities = data['vulnerabilities']
+    vulnerabilities = sorted(vulnerabilities, key=lambda x: x['dateAdded'], reverse=True)
+    print("5 Most Recently Added Vulnerabilities:")
+    for i in range(5):
+        print("\nCVE ID:\t", vulnerabilities[i]['cveID'])
+        print("Product:", vulnerabilities[i]['product'])
+        print("Vendor:\t", vulnerabilities[i]['vendorProject'])
+        print("Name:\t", vulnerabilities[i]['vulnerabilityName'])
+        print("Date:\t", vulnerabilities[i]['dateAdded'])
+        print("URL:\t https://nvd.nist.gov/vuln/detail/" + vulnerabilities[i]['cveID'])
+        print("Info:\t", vulnerabilities[i]['shortDescription'])
 
 def print_stats(data):
     vendor_projects = [vulnerability['vendorProject'] for vulnerability in data['vulnerabilities']]
@@ -166,6 +178,7 @@ parser.add_argument('-a', '--all', type=str, help='Search for both product and v
 parser.add_argument("-e", "--enriched", help="Display detailed information about the CVE")
 parser.add_argument('-u', '--update', action='store_true', help='Check for updates and download the most recent version')
 parser.add_argument('-i', '--info', action='store_true', help='Print information about the CISA Catalog')
+parser.add_argument('-r', '--recent', action='store_true', help='Show 5 most recent additions to the CISA Catalog')
 parser.add_argument('-s', '--stats', action='store_true', help='Print statistics about the CISA Catalog')
 args = parser.parse_args()
 
@@ -201,7 +214,10 @@ elif args.all is not None:
 elif args.enriched is not None:
     print_local_info(data)
     search_string = args.enriched
-    display_enriched_info(args.enriched)   
+    display_enriched_info(args.enriched)
+elif args.recent is not None:
+    print_local_info(data)
+    display_recent_vulnerabilities(data)
 else:
     print_local_info(data)
 
