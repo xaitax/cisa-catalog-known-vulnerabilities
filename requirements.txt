@@ -1,4 +1,9 @@
-Pygments==2.14.0
-requests==2.28.2
-termcolor==2.2.0
-tqdm==4.64.1
+requests
+pandas
+seaborn
+aiohttp
+asyncio
+jinja2
+termcolor
+tqdm
+pygments
