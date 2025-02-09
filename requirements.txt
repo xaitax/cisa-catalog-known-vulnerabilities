@@ -1,9 +1,8 @@
-requests
-pandas
-seaborn
-aiohttp
-asyncio
-jinja2
-termcolor
-tqdm
-pygments
+requests>=2.32.3
+pandas>=2.2.3
+seaborn>=0.13.2
+aiohttp>=3.11.12
+jinja2>=3.1.5
+termcolor>=2.5.0
+tqdm>=4.67.1
+pygments>=2.19.1
